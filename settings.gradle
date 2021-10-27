@@ -10,4 +10,6 @@
 rootProject.name = 'pg3-2022i-lr31d'
 include('aula-10-12')
 include 'aula-10-14'
+include 'aula-10-21'
+include 'aula-10-26'
 
