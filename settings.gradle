@@ -12,4 +12,5 @@ include('aula-10-12')
 include 'aula-10-14'
 include 'aula-10-21'
 include 'aula-10-26'
+include 'trab1_tests'
 
