@@ -1,7 +1,7 @@
 package leirt.pg3.shapes;
 
 public class Rectangle extends Shape
-    implements Quadrilater {
+    implements Quadrilateral {
     private double width;
     private double height;
 
@@ -31,6 +31,8 @@ public class Rectangle extends Shape
 
     @Override
     public double diagonalSize() {
-        return 0;
+        Point p1 = new Point();
+        Point p2 = new Point(width, height);
+        return p1.distance(p2);
     }
 }

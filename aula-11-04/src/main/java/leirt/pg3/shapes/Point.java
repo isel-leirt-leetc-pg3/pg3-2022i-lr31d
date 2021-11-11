@@ -16,6 +16,10 @@ public class Point {
         return new Point(x+p.x, y+p.y);
     }
 
+    public Point sub(Point p) {
+        return new Point(x-p.x, y-p.y);
+    }
+
     public double getX() { return x; }
 
     public double getY() { return y; }

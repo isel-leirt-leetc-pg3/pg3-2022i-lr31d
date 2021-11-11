@@ -27,7 +27,7 @@ public class ShapesTests {
             Assertions.fail("Polygon must have at least 3 vertices");
             System.out.println("after constructor");
         }
-        catch(BadShape e) {
+        catch(BadShapeException e) {
             System.out.println(e.getMessage());
         }
         System.out.println("after try");
@@ -35,7 +35,7 @@ public class ShapesTests {
 
     @Test
     public void check_polygon_toString()
-                    throws BadShape {
+                    throws BadShapeException {
         Point a = new Point(2,3);
         Point b = new Point( 5, 6);
         Point c = new Point( 8, 9);
@@ -50,5 +50,45 @@ public class ShapesTests {
         Shape p = new Square(new Point(2,3), 10);
 
         System.out.println(p.toString());
+    }
+
+    @Test
+    public void show_quadrilaterals_diagonals_size() {
+        Point ref = new Point();
+        Quadrilateral[] quads = {
+            new Rectangle(ref, 3, 4),
+            new Square(ref, 2),
+            new Trapezium(ref, 3, 3, 1)
+        };
+
+        for(Quadrilateral q : quads) {
+            System.out.printf("diag. of (%s) = %.3f\n",
+                              q, q.diagonalSize());
+        }
+    }
+
+    @Test
+    public void show_quadrilaterals_diagonals_size_in_shapes()
+                                throws BadShapeException {
+        Point ref = new Point();
+        Point a = new Point(2,3);
+        Point b = new Point( 5, 6);
+        Point c = new Point( 8, 9);
+
+        Shape[] shapes = {
+            new Rectangle(ref, 3, 4),
+            new Circle(ref, 8.5),
+            new Polygon(a, b, c),
+            new Square(ref, 2),
+            new Trapezium(ref, 3, 3, 1)
+        };
+
+        for(Shape s : shapes) {
+            if (s instanceof Quadrilateral) {
+                Quadrilateral q = (Quadrilateral) s;
+                System.out.printf("diag. of (%s) = %.3f\n",
+                    q, q.diagonalSize());
+            }
+        }
     }
 }

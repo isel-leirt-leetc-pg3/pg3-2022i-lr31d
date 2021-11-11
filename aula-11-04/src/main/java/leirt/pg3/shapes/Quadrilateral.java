@@ -1,5 +1,5 @@
 package leirt.pg3.shapes;
 
-public interface Quadrilater {
+public interface Quadrilateral {
     double diagonalSize();
 }
