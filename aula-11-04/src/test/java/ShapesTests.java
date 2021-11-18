@@ -1,6 +1,8 @@
 import leirt.pg3.shapes.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+
+
 public class ShapesTests {
 
     @Test
@@ -12,7 +14,6 @@ public class ShapesTests {
     public void create_and_show_rectangle() {
         Point p = new Point(3,5);
         Shape r = new Rectangle(p, 10, 6);
-
         System.out.println(r);
     }
 

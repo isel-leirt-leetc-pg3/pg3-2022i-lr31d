@@ -34,7 +34,7 @@ public class PointTests {
 
     @Test
     public void get_point_from_text_test() {
-        String text = "  ( 23+45,   43.26  )";
+        String text = "  ( 23.45,   43.26  )";
         Point p = Point.from(text);
 
         System.out.println(p);

@@ -1,0 +1,48 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam nodesep 20
+skinparam ranksep 40
+skinparam classAttributeIconSize 0
+hide empty members
+skinparam style strictuml
+hide circle
+
+
+interface "Iterable<E>" {
+    iterator() : Iterator<E>
+}
+
+interface "Queue<E>" {
+    offer(e: E):boolean
+    poll() : E
+}
+interface "Iterator<E>" {
+    hasNext() : boolean
+    next(): E
+}
+"Iterable<E>" --> "Iterator<E>" : <<creates>>
+"Iterable<E>" <|-- "Collection<E>"
+
+interface "Collection<E>"  {
+    add(e : E) : boolean
+    addAll(Collection<E>):boolean
+    size(): int
+    clear()
+    remove(o: Object) :boolean
+    toArray() : Object[]
+    toArray(a: T[])
+}
+
+
+interface "List<E>" {
+    get(index: int) : E
+    indexOf(Object o): int
+    set(index:int, e:E)
+}
+"Collection<E>" <|-- "List<E>"
+"Collection<E>" <|-- "Queue<E>"
+"List<E>" <|.. "ArrayList<E>"
+"List<E>" <|.. "LinkedList<E>"
+"Queue<E>" <|.. "LinkedList<E>"
+@enduml
