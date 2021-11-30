@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam nodesep 20
+skinparam ranksep 40
+skinparam classAttributeIconSize 0
+hide empty members
+skinparam style strictuml
+hide circle
+
+abstract class OutputStream {
+    +{abstract}write(v:int)
+    +write(byte[] buf) : int
+    +write(byte[] buf, int n, int ofs)
+    +close()
+}
+
+class FileOutputStream extends OutputStream {
+    +FileOutputStream(name: String)
+    +FileOutputStream(name: String, append: boolean)
+}
+
+class ByteArrayOutputStream extends OutputStream {
+    +ByteArrayOutputStream()
+    +ByteArrayOutputStream(initialSize: int)
+}
+
+
+@enduml

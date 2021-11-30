@@ -1,0 +1,62 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam nodesep 20
+skinparam ranksep 40
+skinparam classAttributeIconSize 0
+hide empty members
+skinparam style strictuml
+hide circle
+
+abstract class Writer implements Closeable, Appendable{
+    +write(c: int)
+    +write(char[] buf) : int
+    +write(s:String)
+    +{abstract} write(char[] buf, int n, int ofs)
+    +flush()
+    +close()
+    +append(c:char):Appendable
+    +append(csq: CharSequence):Appendable
+
+}
+
+
+class FileWriter extends OutputStreamWriter {
+    +FileWriter(fileName: String )
+    +FileWriter(fileName: String, append:boolean )
+}
+
+class StringWriter extends Writer{
+    +StringWriter()
+    +StringWriter(initialSize:int)
+}
+
+
+
+
+class BufferedWriter extends Writer{
+    +BufferedWriter(w: Writer)
+}
+
+class OutputStreamWriter extends Writer {
+    +OutputStreamWriter( out:OutputStream)
+    +OutputStreamWriter( out:OutputStream, cs:CharSet)
+}
+BufferedWriter "1" o--- "1" Writer : writer
+
+interface Closeable {
+    close()
+}
+
+interface Appendable {
+    append(c: char) : Appendable
+    append(csq: CharSequence ) :Appendable
+}
+
+class PrintWriter extends Writer {
+    +PrintWriter(OutputStream out)
+    +PrintWriter(Writer out)
+    +PrintWriter format(format: String, args... : Object): PrintWriter
+    +print(...)
+    +println(...)
+}
+@enduml

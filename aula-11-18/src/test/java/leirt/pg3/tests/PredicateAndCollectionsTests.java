@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class PredicateTests {
+public class PredicateAndCollectionsTests {
 
     private  static  List<Person> filterPersons(List<Person> persons,
                                        Predicate<Person> pred) {
@@ -51,6 +51,9 @@ public class PredicateTests {
 
     @Test
     public void persons_remove_if_example() {
+
+        // what happened if we use List.of to create the list
+        // as we do in the previous test. Try it!
         List<Person> persons = new ArrayList<>();
         persons.add(
             new Person("Antonio", 123456,
@@ -66,7 +69,8 @@ public class PredicateTests {
         System.out.println("persons class is " + persons.getClass().getName());
         System.out.println("\nShow persons having more than 20 years");
 
-
+        // all the persons with more than 20 years will
+        // be removed from the list
         persons.removeIf(p -> p.getAge() > 20);
 
         for(Person p : persons)  {

@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam nodesep 20
+skinparam ranksep 40
+skinparam classAttributeIconSize 0
+hide empty members
+skinparam style strictuml
+hide circle
+
+abstract class Reader implements Closeable{
+    +read():int
+    +read(char[] buf) : int
+    +{abstract} read(char[] buf, int n, int ofs)
+    +close()
+}
+
+interface Closeable {
+    close()
+}
+
+class InputStreamReader extends Reader {
+    +InputStreamReader( in:InputStream)
+    +InputStreamReader( in:InputStream,cs: CharSet)
+}
+class FileReader extends InputStreamReader{
+    +FileReader(fileName: String )
+}
+
+class StringReader extends Reader{
+    +StringReader(input: String)
+}
+
+class BufferedReader extends Reader {
+    +BufferedReader(r: Reader)
+    +readLine() : String
+}
+BufferedReader "1" o-.. "1" Reader : reader
+@enduml

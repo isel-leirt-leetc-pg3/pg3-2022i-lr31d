@@ -30,6 +30,7 @@ interface "Collection<E>"  {
     size(): int
     clear()
     remove(o: Object) :boolean
+    removeIf(pred:Predicate<E>)
     toArray() : Object[]
     toArray(a: T[])
 }
@@ -40,6 +41,7 @@ interface "List<E>" {
     indexOf(Object o): int
     set(index:int, e:E)
 }
+
 "Collection<E>" <|-- "List<E>"
 "Collection<E>" <|-- "Queue<E>"
 "List<E>" <|.. "ArrayList<E>"

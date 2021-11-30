@@ -1,0 +1,33 @@
+import org.junit.jupiter.api.Test;
+
+import java.io.*;
+import java.nio.file.Path;
+
+public class TextStreamTests {
+
+    private static void copyTo(Reader reader, Writer writer)
+                        throws IOException  {
+        int c;
+
+        while((c = reader.read()) != -1) {
+            writer.write(c);
+        }
+    }
+
+    @Test
+    public void use_copy_to_for_file_copy()
+        throws IOException {
+
+        String cwd = Path.of("").toAbsolutePath().toString();
+        System.out.println(cwd);
+        String sourceName = "input.txt";
+        String dstName = "output.txt";
+        FileReader inFile = new FileReader(sourceName);
+        FileWriter outFile = new FileWriter(dstName);
+
+        copyTo(inFile, outFile);
+
+        inFile.close();
+        outFile.close();
+    }
+}

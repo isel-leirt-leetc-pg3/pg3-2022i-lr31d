@@ -69,12 +69,14 @@ public class ComparatorTests {
         };
 
         // using an anonymous class for the creation of a point comparator
-        Comparator<Point> pc =
-            ( p1,  p2) -> {
+        Comparator<Point> pc = new Comparator<Point>() {
+            public int compare(Point p1, Point p2) {
                 // the System.out is just for demo purposes
                 System.out.println("comparing " +p1 + " and " + p2);
                 return p1.distance()-p2.distance();
-            };
+            }
+        };
+
 
         Arrays.sort(points, pc);
 
@@ -98,7 +100,7 @@ public class ComparatorTests {
     public void points_sort_with_lambda_expression() {
         Point[] points = {
             new Point(2,3),
-            new Point(1,2 ),
+            new Point(1,2),
             new Point(3, 4)
         };
 
@@ -140,6 +142,25 @@ public class ComparatorTests {
         };
 
         Arrays.sort(points, this::cmpPoints);
+
+        for(Point p : points)
+            System.out.println(p);
+
+    }
+
+    /**
+     * Show using an instance method reference for comparing points
+     */
+    @Test
+    public void points_sort_with_comparator_comparing_static_method() {
+        Point[] points = {
+            new Point(2,3),
+            new Point(1,2 ),
+            new Point(3, 4)
+        };
+
+        Arrays.sort(points,
+            Comparator.comparing(Point::distance));
 
         for(Point p : points)
             System.out.println(p);
