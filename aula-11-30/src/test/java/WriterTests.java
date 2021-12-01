@@ -8,9 +8,9 @@ import java.nio.file.Path;
 
 public class WriterTests {
 
-    private void  writeTo(String fileName, String content )
+    private void  writeTo(String fileName, String content, boolean appendMode )
             throws IOException {
-        try(Writer writer = new FileWriter(fileName, false)) {
+        try(Writer writer = new FileWriter(fileName, appendMode)) {
             writer.write(content);
         }
     }
@@ -23,13 +23,23 @@ public class WriterTests {
     }
 
     @Test
-    public void two_times_write_writer() throws IOException{
+    public void two_times_write_writer_no_append_mode() throws IOException{
         String cwd = Path.of("").toAbsolutePath().toString();
         System.out.println(cwd);
         String fileOut = "testfile.txt";
 
-        //writeTo(fileOut, "A primeira linha\n");
-        //writeTo(fileOut, "A segunda linha\n");
+        writeTo(fileOut, "A primeira linha\n", false );
+        writeTo(fileOut, "A segunda linha\n", false);
+    }
+
+    @Test
+    public void two_times_write_writer_with_append_mode() throws IOException{
+        String cwd = Path.of("").toAbsolutePath().toString();
+        System.out.println(cwd);
+        String fileOut = "testfile.txt";
+
+        writeTo(fileOut, "A primeira linha\n", true );
+        writeTo(fileOut, "A segunda linha\n", true);
     }
 
     @Test
