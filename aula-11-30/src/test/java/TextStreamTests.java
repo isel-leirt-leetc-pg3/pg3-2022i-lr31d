@@ -86,4 +86,25 @@ public class TextStreamTests {
         }
     }
 
+    @Test
+    public void use_copyTo_for_file_display_using_try_with_resources()
+        throws IOException {
+
+        String cwd = Path.of("").toAbsolutePath().toString();
+        System.out.println(cwd);
+        String sourceName = "input.txt";
+
+
+        // this try variant, named try-with-resources, is
+        // the automated way given by java to guarantee that the resources
+        // (inFile and outFile in this case) are closed in any circumstance.
+        // Simple and good!
+        try (FileReader inFile = new FileReader(sourceName);
+             PrintWriter outFile = new PrintWriter(System.out)) {
+
+            copyTo(inFile, outFile);
+        }
+
+        System.out.println("Done!");
+    }
 }
