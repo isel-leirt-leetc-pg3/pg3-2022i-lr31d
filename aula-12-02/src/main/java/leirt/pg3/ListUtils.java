@@ -12,7 +12,7 @@ import java.util.function.Predicate;
  */
 public class ListUtils  {
 
-    private  static <E> List<E> filter(List<E> items,
+    public  static <E> List<E> filter(List<E> items,
                                                Predicate<E> pred) {
         List<E> newList = new ArrayList<>();
 
@@ -22,7 +22,7 @@ public class ListUtils  {
         return newList;
     }
 
-    private  static <T,U> List<U> map(List<T> items,
+    public  static <T,U> List<U> map(List<T> items,
                       Function<T,U> mapper) {
         List<U> newList = new ArrayList<>();
 
@@ -32,10 +32,19 @@ public class ListUtils  {
         return newList;
     }
 
-    private  static <T> void forEach(List<T> items,
+    public  static <T> void forEach(List<T> items,
                               Consumer<T> action) {
         for (T t : items) {
             action.accept(t);
         }
+    }
+
+    public static long sum(List<Integer> values) {
+        long[] total = {0};
+        forEach(
+            values,
+            (n -> total[0] +=  n)
+        );
+        return total[0];
     }
 }
