@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam nodesep 20
+skinparam ranksep 40
+skinparam classAttributeIconSize 0
+hide empty members
+skinparam style strictuml
+hide circle
+
+
+interface "Map<K,V>"  {
+    get(key: Object) : V
+    put(key: K, value : V)
+    values(): Collection<V>
+    keySet() : Set<K>
+    forEach(action: BiConsumer<K,V> )
+    size(): int
+    clear()
+    remove(key: Object) :boolean
+    containsKey(key: Object)
+    computeIfAbsent(key:K, builder :Function<K,V>
+}
+
+interface "NavigableMap<K,V>"  {
+    descendingMap() : NavigableMap<K,V>
+    firstEntry() : Map.Entry<K,V>
+    lastEntry() : Map.Entry<K,V>
+    pollFirstEntry() : Map.Entry<K,V>
+    pollLastEntry() : Map.Entry<K,V>
+}
+
+
+interface "SortedMap<K,V>"  {
+    firstKey() : E
+    lastKey() : E
+}
+
+"Map<K,V>" <|-- "SortedMap<K,V>"
+"SortedMap<K,V>" <|-- "NavigableMap<K,V>"
+
+class "HashMap<K,V>" {
+    HashMap()
+}
+"Map<K,V>" <|... "HashMap<K,V>"
+
+class "TreeMap<K,V>" {
+    TreeMap()
+    TreeMap(cmp: Comparator<E>)
+}
+"NavigableMap<K,V>" <|.. "TreeMap<K,V>"
+
+@enduml

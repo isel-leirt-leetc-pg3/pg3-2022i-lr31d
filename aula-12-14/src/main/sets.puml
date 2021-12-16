@@ -1,0 +1,62 @@
+@startuml
+
+'https://plantuml.com/class-diagram
+skinparam nodesep 20
+skinparam ranksep 40
+skinparam classAttributeIconSize 0
+hide empty members
+skinparam style strictuml
+hide circle
+
+interface "Iterator<E>" {
+}
+
+interface "Iterable<E>" {
+    iterator() : Iterator<E>
+}
+
+
+"Iterable<E>" ..> "Iterator<E>" : <<creates>>
+
+
+interface "Collection<E>"  {
+    add(e : E) : boolean
+    addAll(Collection<E>):boolean
+    size(): int
+    clear()
+    remove(o: Object) :boolean
+    removeIf(pred:Predicate<E>)
+    toArray() : Object[]
+    toArray(a: T[])
+}
+"Iterable<E>" <|-- "Collection<E>"
+
+interface "Set<E>"  {
+}
+
+interface "NavigableSet<E>"  {
+    descendingSet() : NavigableSet<E>
+    pollFirst() : E
+    pollLast() : E
+}
+"Collection<E>" <|-- "Set<E>"
+
+interface "SortedSet<E>"  {
+    first() : E
+    last() : E
+}
+
+"Set<E>" <|-- "SortedSet<E>"
+
+class "HashSet<E>" {
+    HashSet()
+}
+"Set<E>" <|... "HashSet<E>"
+
+class "TreeSet<E>" {
+    TreeSet()
+    TreeSet(cmp: Comparator<E>)
+}
+"SortedSet<E>" <|.. "TreeSet<E>"
+"NavigableSet<E>" <|.. "TreeSet<E>"
+@enduml
