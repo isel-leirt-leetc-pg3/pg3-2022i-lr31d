@@ -48,8 +48,6 @@ public class StreamUtilsTests {
         StringWriter writer = new StringWriter();
 
         int nDots = StreamUtils.copyWithReplace(reader, writer);
-
-
         System.out.println("nDots= " + nDots );
         System.out.println("dotted string= " + writer  );
 
