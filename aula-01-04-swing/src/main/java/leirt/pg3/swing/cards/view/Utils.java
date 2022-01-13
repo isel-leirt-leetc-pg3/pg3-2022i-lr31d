@@ -16,8 +16,6 @@ public class Utils {
                 ClassLoader.getSystemResourceAsStream(iconRes);
             BufferedImage img = ImageIO.read(playImageStream);
             Image butImg = img.getScaledInstance( width, height,  java.awt.Image.SCALE_SMOOTH ) ;
-
-            ImageIcon icon =   new ImageIcon(butImg);
             return new ImageIcon( butImg );
         }
         catch(IOException e) {

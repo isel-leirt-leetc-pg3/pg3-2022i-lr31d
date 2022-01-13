@@ -3,19 +3,43 @@ package leirt.pg3.swing.cards.model;
 import java.util.Random;
 
 public class Board {
-    private int lines, cols;            // board size
-    private int moves;                  // count the moves needed to remove all pairs
+    private int lines, cols;                // board size
+    private int moves;                      // count the moves needed to remove all pairs
 
-    private CardChangedListener listener;       // who is informed about board changes
+    private CardChangedListener listener;   // who is informed about board changes
 
-    private Card[][] cards;             // the game board
+    private Card[][] cards;                 // the game board
 
-    private Card first, second;         // played cards
-    private int removedCards;           // number of removed cards
+    private Card first, second;             // played cards
+    private int removedCards;               // number of removed cards
 
 
-    Random rand = new Random();         // random generator to produce random boards
+    Random rand = new Random();             // random generator to produce random boards
 
+
+    // CardChanged event
+    public void setCardListener(CardChangedListener cardListener) {
+        this.listener = cardListener;
+    }
+
+    public void fireCardHidden(Card c) {
+        if (listener != null) listener.hidden(c);
+    }
+
+    public void fireCardRemoved(Card c) {
+        if (listener != null) listener.removed(c);
+    }
+
+    public void fireCardShowed(Card c) {
+        if (listener != null) listener.showed(c);
+    }
+
+
+    /**
+     * @param lines
+     * @param cols
+     * @param nValues the number of possible card values [0, nValues-1]
+     */
     public Board(int lines, int cols, int nValues) {
 
         if (( (lines*cols) % 2 != 0))
@@ -27,8 +51,10 @@ public class Board {
 
         moves = removedCards = 0;
 
-        // definição da semente do gerador pseudo-aleatório
+        // pseudo-random generator seed
         rand.setSeed(System.currentTimeMillis());
+
+        // randomly build the board
         buildBoard(lines, cols, nValues);
     }
 
@@ -39,14 +65,18 @@ public class Board {
 
     /**
      * builds a random game board
+     * @param lines
+     * @param cols
+     * @param nValues
      */
     private void buildBoard(int lines, int cols, int nValues) {
         int nCards = lines*cols;
-        // array auxiliar para obter valores aleatórios
+        // auxiliary array procuce random card values
         int[] values = new int[nCards];
         int index = 0;
         for(int i = 0; i < nCards/2; ++i) {
             int val = rand.nextInt(nValues);
+            // a pair at once
             values[index++] = val;
             values[index++] = val;
         }
@@ -57,7 +87,7 @@ public class Board {
         // randomly populated the board
         for (int l=0; l < lines; ++l)  {
             for (int c=0; c < cols; ++c) {
-                // para cada nova carta obter o seu valor aleatoriamente
+                // get the random value for the card
                 int idx = rand.nextInt(nCards);
                 cards[l][c] = buildCard(values[idx], l, c);
                 values[idx] = values[--nCards];
@@ -72,7 +102,7 @@ public class Board {
      */
     private void removeCard(Card c) {
         c.setState(Card.State.REMOVED);
-        if (listener != null) listener.removed(c);
+        fireCardRemoved(c);
         removedCards++;
     }
 
@@ -82,7 +112,7 @@ public class Board {
      */
     private void showCard(Card c) {
         c.setState(Card.State.TURNED_UP);
-        if (listener != null) listener.showed(c);
+        fireCardShowed(c);
     }
 
     /**
@@ -91,12 +121,12 @@ public class Board {
      */
     private void hideCard(Card c) {
         c.setState(Card.State.TURNED_DOWN);
-        if (listener != null) listener.hidden(c);
+        fireCardHidden(c);
     }
 
 
     /**
-     * Execução da jogada
+     * play
      * @param card
      * @return
      */
@@ -126,7 +156,6 @@ public class Board {
                     return true;
                 }
             }
-
         }
         return false;
     }
@@ -152,9 +181,6 @@ public class Board {
         return moves;
     }
 
-    public void setCardListener(CardChangedListener cardListener) {
-        this.listener = cardListener;
-    }
 
     public Card getCardAt(int line, int col) {
         return cards[line][col];

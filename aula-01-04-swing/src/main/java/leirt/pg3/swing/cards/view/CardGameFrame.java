@@ -38,7 +38,7 @@ public class CardGameFrame extends JFrame {
 
                 boardViewer.setVisible(false);
 
-               JOptionPane.showMessageDialog(
+                JOptionPane.showMessageDialog(
                         null, String.format("You win in %d moves", model.getMoves()));
 
 
