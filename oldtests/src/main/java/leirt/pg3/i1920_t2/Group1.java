@@ -27,10 +27,13 @@ public class Group1 {
     }
 
     public static Date firstDate(Group group) {
+
         return greaterKey(group,
-                         (Register r) -> r.isVaccinateInDay(),
-                         (Register r)  -> r.getNextVaccinate(),
-                          (d1, d2) -> d2.compareTo(d1));
+                         r -> r.isVaccinateInDay(),
+                         // em alternativa poder-se-ia usar um method reference como mostra abaixo
+                         //Register::isVaccinateInDay,
+                         r -> r.getNextVaccinate(),
+                         (d1, d2) -> d2.compareTo(d1));
     }
 
     public static SortedMap<Date, List<Register>> registersPerDate(
@@ -52,8 +55,12 @@ public class Group1 {
     public static Iterable<Register> getAllRegisters( SortedMap<Date, List<Register>> registersPerData ) {
         List<Register> allRegisters = new ArrayList<>();
 
-
         for(List<Register> regForDate: registersPerData.values()) {
+            // psra criar o comparador usa-se um método estático de Comparator que
+            // usa para comparação o valor retornado pelo método getRegisterNumber
+            // também podia ser feita uma implementação do comparador como mostra o código
+            // comentado na linha seguinte
+            //regForDate.sort( (r1, r2) -> r1.getRegisterNumber() - r2.getRegisterNumber());
             regForDate.sort( Comparator.comparing(Register::getRegisterNumber));
             allRegisters.addAll(regForDate);
         }

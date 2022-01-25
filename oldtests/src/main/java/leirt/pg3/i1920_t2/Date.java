@@ -9,12 +9,20 @@ import java.time.LocalDate;
 public class Date implements Comparable<Date> {
     private LocalDate real;
 
+    public static Date today() {
+        return new Date();
+    }
+
     public Date() {
         real = LocalDate.now();
     }
 
     public Date(String str) {
         real = LocalDate.parse(str);
+    }
+
+    public Date(int y, int m, int d) {
+        real = LocalDate.of(y,m,d);
     }
 
     @Override

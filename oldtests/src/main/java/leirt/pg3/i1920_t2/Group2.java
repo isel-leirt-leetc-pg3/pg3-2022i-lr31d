@@ -22,6 +22,7 @@ public class Group2 {
         }
     }
 
+    // método auxiliar para obter a data da string com a linha do ficheiro
     private static Date getDate(String line) {
         String[] parts = line.split(" ");
         return new Date(parts[2]);
